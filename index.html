@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do You Love Me?</title>
+
+<style>
+body {
+  margin: 0;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  overflow: hidden;
+}
+
+/* Teddy Bounce */
+img {
+  width: 230px;
+  margin-top: 40px;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Typing Text */
+.typing {
+  font-size: 28px;
+  border-right: 3px solid black;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: auto;
+  animation: typing 3s steps(20) forwards, blink 0.7s infinite;
+}
+@keyframes typing {
+  to { width: 260px; }
+}
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background: hotpink;
+  color: white;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  transform: scale(1.1);
+  background: deeppink;
+}
+
+#loveMessage {
+  display: none;
+  font-size: 24px;
+  color: red;
+  margin-top: 20px;
+}
+
+/* Confetti */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: red;
+  top: 0;
+  animation: fall 3s linear forwards;
+}
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.image-container img {
+  width: 230px;
+}
+
+#loveGif {
+  display: none;
+}
+.small-text {
+  font-size: 14px;
+  color: #444;
+  margin-top: 5px;
+  min-height: 20px;
+}
+footer {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  font-size: 14px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="image-container">
+    <img id="mainTeddy" src="WhatsApp Image 2026-02-24 at 9.02.02 PM.jpeg">
+    <img id="loveGif" 
+         src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+</div>
+<h1 id="question" class="typing">Do you love me?</h1>
+<p id="noMessage" class="small-text"></p>
+<br>
+
+<button onclick="showLove()">Yes</button>
+<button onclick="noClick()">No</button>
+      
+<h2 id="loveMessage">I knew it! You are the best ❤️</h2>
+<audio id="bgMusic" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" loop></audio>
+
+<footer>Made with ❤️ by Anas</footer>
+
+<script>
+
+const funnyTexts = [
+  "Are you sure? 😢",
+  "Soch lo thoda 🤔",
+  "Dil tod doge kya? 💔",
+  "Last chance 😅",
+  "Ab to Yes dabao 😜"
+];
+
+let count = 0;
+
+/* YES CLICK */
+function showLove() {
+  document.getElementById("mainTeddy").style.display = "none";
+  document.getElementById("loveGif").style.display = "block";
+  document.getElementById("loveMessage").style.display = "block";
+  document.getElementById("question").style.display="none";
+  document.getElementById("noMessage").innerText = "";
+  document.getElementById("bgMusic").play();
+  confettiBlast();
+}
+
+/* NO CLICK FUN */
+ function noClick() {
+  const messageBox = document.getElementById("noMessage");
+
+  if (count < funnyTexts.length) {
+    messageBox.innerText = funnyTexts[count];
+    count++;
+  } else {
+    messageBox.innerText = "Ab to maan jao 😂";
+  }
+}
+
+/* CONFETTI EFFECT */
+function confettiBlast() {
+  for (let i = 0; i < 50; i++) {
+    let confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random() * window.innerWidth + "px";
+    confetti.style.backgroundColor = 
+      "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+    confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+    document.body.appendChild(confetti);
+
+    setTimeout(() => {
+      confetti.remove();
+    }, 3000);
+  }
+}
+
+</script>
+
+</body>
+</html>
