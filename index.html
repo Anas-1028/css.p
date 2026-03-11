@@ -1,185 +1,303 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Do You Love Me?</title>
+<title>Birthday Surprise</title>
 
 <style>
-body {
-  margin: 0;
-  text-align: center;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
-  overflow: hidden;
+
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#ff9a9e,#fecfef);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:rgb(255, 255, 255);
+overflow:hidden;
 }
 
-/* Teddy Bounce */
-img {
-  width: 230px;
-  margin-top: 40px;
-  animation: bounce 2s infinite;
-}
-@keyframes bounce {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+.page{display:none;}
+.active{display:block;}
+
+.container{
+background:rgba(0,0,0,0.25);
+padding:40px;
+border-radius:20px;
+backdrop-filter:blur(10px);
 }
 
-/* Typing Text */
-.typing {
-  font-size: 28px;
-  border-right: 3px solid black;
-  width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  margin: auto;
-  animation: typing 3s steps(20) forwards, blink 0.7s infinite;
-}
-@keyframes typing {
-  to { width: 260px; }
-}
-@keyframes blink {
-  50% { border-color: transparent; }
+button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:#ff4b6e;
+color:white;
+font-size:18px;
+cursor:pointer;
+margin-top:20px;
 }
 
-/* Buttons */
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 25px;
-  background: hotpink;
-  color: white;
-  font-size: 16px;
-  margin: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button:hover {
-  transform: scale(1.1);
-  background: deeppink;
+/* Cake */
+
+.cake{
+font-size:80px;
+animation:bounce 2s infinite;
 }
 
-#loveMessage {
-  display: none;
-  font-size: 24px;
-  color: red;
-  margin-top: 20px;
+@keyframes bounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
 }
 
-/* Confetti */
-.confetti {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background: red;
-  top: 0;
-  animation: fall 3s linear forwards;
-}
-@keyframes fall {
-  to {
-    transform: translateY(100vh) rotate(720deg);
-    opacity: 0;
-  }
-}
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
+/* Floating hearts & flowers */
+
+.emoji{
+position:absolute;
+font-size:25px;
+animation:float 6s linear infinite;
 }
 
-.image-container img {
-  width: 230px;
+@keyframes float{
+0%{transform:translateY(100vh);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
 }
 
-#loveGif {
-  display: none;
+/* Heart button */
+
+.bigheart{
+font-size:70px;
+cursor:pointer;
+margin-top:20px;
+animation:pulse 1.5s infinite;
 }
-.small-text {
-  font-size: 14px;
-  color: #444;
-  margin-top: 5px;
-  min-height: 20px;
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
 }
-footer {
-  position: fixed;
-  bottom: 10px;
-  width: 100%;
-  font-size: 14px;
+
+/* Slideshow */
+
+.slideshow img{
+width:250px;
+height:250px;
+border-radius:20px;
 }
+
+/* Typing text */
+
+.typing{
+font-size:24px;
+border-right:3px solid rgba(255, 255, 255, 0);
+white-space:nowrap;
+overflow:hidden;
+width:0;
+animation:typing 6s steps(40,end) forwards,blink .7s infinite;
+}
+
+@keyframes typing{
+to{width:100%;}
+}
+
+@keyframes blink{
+50%{border-color:transparent;}
+}
+
+/* I love you animation */
+
+.love{
+font-size:50px;
+margin-top:20px;
+animation:zoom 2s infinite;
+}
+
+@keyframes zoom{
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+}
+
+/* Fireworks */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+}
+p{font-size: 22px;
+line-height: 1.6;
+font-weight: 500;
+}
+
 
 </style>
 </head>
+
 <body>
 
-<div class="image-container">
-    <img id="mainTeddy" src="WhatsApp Image 2026-02-24 at 9.02.02 PM.jpeg">
-    <img id="loveGif" 
-         src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+<canvas id="fireworks"></canvas>
+
+<!-- PAGE 1 -->
+
+<div class="page active" id="page1">
+<div class="container">
+<h1>I Have Something Special For You ❤️</h1>
+<button onclick="nextPage(2)">Open Surprise 🎁</button>
 </div>
-<h1 id="question" class="typing">Do you love me?</h1>
-<p id="noMessage" class="small-text"></p>
+</div>
+
+<!-- PAGE 2 -->
+
+<div class="page" id="page2">
+<div class="container">
+<h1>❤️ Happy Birthday My Love ❤️</h1>
+<div class="cake">🎂</div>
+<p>You are the most beautiful part of my life</p>
+<button onclick="nextPage(3)">See My Wish 💌</button>
+</div>
+</div>
+
+<!-- PAGE 3 -->
+
+<div class="page" id="page3">
+<div class="container">
+
+<h1>🌸 My Birthday Wish 🌸</h1>
+
+<p>
+Happy Birthday My Beautiful ❤️ <br><br>
+May your life be full of happiness and love.
+</p>
+
+<p>
+🌹 I promise to care for you  
+🌸 I promise to support you  
+💖 I promise to love you forever
+</p>
+
+
+<div class="bigheart" onclick="nextPage(4)">❤️</div>
+<p>Tap the heart</p>
+
+</div>
+</div>
+
+<!-- PAGE 4 -->
+
+<div class="page" id="page4">
+<div class="container">
+
+<h1>Our Beautiful Memories ❤️</h1>
+
+<img id="slide" src="OIP (3).jfif">
+
 <br>
 
-<button onclick="showLove()">Yes</button>
-<button onclick="noClick()">No</button>
-      
-<h2 id="loveMessage">I knew it! You are the best ❤️</h2>
-<audio id="bgMusic" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" loop></audio>
+<button onclick="nextPage(5)">Final Surprise 💌</button>
 
-<footer>Made with ❤️ by Anas</footer>
+</div>
+</div>
+
+<!-- PAGE 5 -->
+
+<div class="page" id="page5">
+<div class="container">
+
+<h1>💌 My Love Letter</h1>
+
+<p class="typing">
+You are the most special person in my life.
+Every moment with you is beautiful.<br>
+I wish your life always stays full of love,
+happiness and success.
+</p>
+
+<div class="love">❤️ I LOVE YOU ❤️</div>
+
+</div>
+</div>
+
 
 <script>
 
-const funnyTexts = [
-  "Are you sure? 😢",
-  "Soch lo thoda 🤔",
-  "Dil tod doge kya? 💔",
-  "Last chance 😅",
-  "Ab to Yes dabao 😜"
+/* page change */
+
+function nextPage(page){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById("page"+page).classList.add("active");
+}
+
+/* floating emojis */
+
+function createEmoji(){
+
+const emojis=["❤️","🌸","💖","🌹"];
+
+const emoji=document.createElement("div");
+emoji.classList.add("emoji");
+
+emoji.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+
+emoji.style.left=Math.random()*100+"vw";
+
+document.body.appendChild(emoji);
+
+setTimeout(()=>emoji.remove(),6000);
+
+}
+
+setInterval(createEmoji,300);
+
+
+/* slideshow */
+
+let images=[
+"OIP (3).jfif",
+"OIP (4).jfif",
+"OIP (2).jfif",
+"OIP (1).jfif",
+"OIP.jfif",
+
 ];
 
-let count = 0;
+let i=0;
 
-/* YES CLICK */
-function showLove() {
-  document.getElementById("mainTeddy").style.display = "none";
-  document.getElementById("loveGif").style.display = "block";
-  document.getElementById("loveMessage").style.display = "block";
-  document.getElementById("question").style.display="none";
-  document.getElementById("noMessage").innerText = "";
-  document.getElementById("bgMusic").play();
-  confettiBlast();
+setInterval(()=>{
+i=(i+1)%images.length;
+document.getElementById("slide").src=images[i];
+},2000);
+
+
+/* fireworks */
+
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+function firework(){
+
+let x=Math.random()*canvas.width;
+let y=Math.random()*canvas.height/2;
+
+for(let i=0;i<20;i++){
+
+ctx.beginPath();
+ctx.arc(x+Math.random()*80-40,y+Math.random()*80-40,3,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+
 }
 
-/* NO CLICK FUN */
- function noClick() {
-  const messageBox = document.getElementById("noMessage");
-
-  if (count < funnyTexts.length) {
-    messageBox.innerText = funnyTexts[count];
-    count++;
-  } else {
-    messageBox.innerText = "Ab to maan jao 😂";
-  }
 }
 
-/* CONFETTI EFFECT */
-function confettiBlast() {
-  for (let i = 0; i < 50; i++) {
-    let confetti = document.createElement("div");
-    confetti.classList.add("confetti");
-    confetti.style.left = Math.random() * window.innerWidth + "px";
-    confetti.style.backgroundColor = 
-      "hsl(" + Math.random() * 360 + ", 100%, 50%)";
-    confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
-    document.body.appendChild(confetti);
-
-    setTimeout(() => {
-      confetti.remove();
-    }, 3000);
-  }
-}
+setInterval(firework,500);
 
 </script>
 
